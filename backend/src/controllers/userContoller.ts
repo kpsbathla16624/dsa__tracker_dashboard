@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User, { IUser } from "../model/userModel";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
+import { Iprofile } from "../model/profileModel";
 
 const SECRET_KEY = "7sQ8B#fH&3y^A!jKpLq9R8$g5vT@eF&nJzYx1wC2^uZ@oS#eA";
 
@@ -85,5 +86,61 @@ export async function GetUserById(req: any, res: any) {
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ message: "internal server error" });
+  }
+}
+
+export async function UpdateUser(req: any, res: any) {
+  const { id } = req.query;
+
+  if (!id) {
+    return res.status(400).json({ message: "ID is required" });
+  }
+
+  const objectId = new ObjectId(id as string);
+  const collection = mongoose.connection.db?.collection("users");
+
+  try {
+  
+    const user = await collection?.findOne({ _id: objectId });
+    
+  
+    if (!user) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+    const newUser = req.body;
+   const updatedUser: Partial<IUser> = {};
+
+   if (newUser.email !== undefined) updatedUser.email = newUser.email; 
+    if (newUser.name !== undefined) updatedUser.name = newUser.name; 
+    if (newUser.profiles !== undefined) {
+     
+      updatedUser.profiles = newUser.profiles;
+    }
+
+    updatedUser.password = user.password; 
+    
+    
+
+    console.log("Attempting to replace user with data:", newUser);
+
+
+    const result = await collection?.findOneAndUpdate(
+      { _id: objectId }, 
+      {$set: updatedUser},
+      {returnDocument:"after"} 
+    );
+
+    // Check if the replace was successful
+    if (result && result.modifiedCount === 0) {
+      console.error("Replace failed. Result:", result);
+      return res.status(500).json({ message: "Failed to update user" });
+    }
+
+    // Return the updated user data (optional: you can fetch the user again if needed)
+    return res.status(200).json(result);
+    
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 }
