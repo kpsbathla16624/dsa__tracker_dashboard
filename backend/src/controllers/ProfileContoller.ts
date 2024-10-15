@@ -23,7 +23,7 @@ export async function AddprofileTOUser(req: any, res: any) {
 
     const result = await User.findOneAndUpdate(
       { _id }, // Filter by user ID
-      { $push: { profiles: { $each: profiles } } }, 
+      { $push: { profiles: profiles } }, 
       { new: true } 
     );
 
