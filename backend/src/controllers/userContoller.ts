@@ -9,17 +9,17 @@ import { Iprofile } from "../model/profileModel";
 const SECRET_KEY = "7sQ8B#fH&3y^A!jKpLq9R8$g5vT@eF&nJzYx1wC2^uZ@oS#eA";
 
 export const registerUser = async (req: any, res: any) => {
-  const { email, password } = req.body;
+  const { email, password , name} = req.body;
 
   try {
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(401).json({ message: "Email already exists" });
     }
 
     // Create a new user instance
-    const user = new User({ email, password });
+    const user = new User({ email, password , name });
 
     // Save the user to the database
     await user.save();

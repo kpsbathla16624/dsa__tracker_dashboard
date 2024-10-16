@@ -7,9 +7,10 @@ import { toast, ToastContainer } from 'react-toastify'; // Import toast and Toas
 import 'react-toastify/dist/ReactToastify.css'; 
 import { MdEmail } from "react-icons/md";
 
-const LoginCard: React.FC = () => {
+const RegisterCard: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState<string>("");
+  const [name,setname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate(); // Use this to redirect after login
@@ -22,34 +23,40 @@ const LoginCard: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post("/api/auth/register", {
         email: email,
         password: password,
+        name:name
       });
 
-      console.log(response.data); // Check the response structure
+      console.log(response);
+      if (response.status==401) {
+        toast.error(response.data.message);
+        return;
+      }
+      if (response.status==201) {
+        const loginResponse = await axios.post("/api/auth/login", {
+          email: email,
+          password: password,
 
-      // Assuming the JWT token is in response.data.token
-      const token = response.data.token;
-      localStorage.setItem("token", token); 
-      toast.success("Login successful!", {
-        position: "top-right",
-        autoClose: 5000, // Close after 5 seconds
-      });
-      navigate("/dashboard"); // Redirect to the dashboard
-    } catch (error: any) {
-      // Enhanced error handling
-      if (error.response) {
-        console.error("Error response:", error.response.data); // Log the full error response
-        setError(error.response.data.message || "Invalid email or password");
-        toast.error(error.response.data.message || "Invalid email or password", {
+        });
+        const token = loginResponse.data.token;
+        localStorage.setItem("token", token); 
+        toast.success("Login successful!", {
           position: "top-right",
-          autoClose: 5000,
-        }); // Show error toast message
-      } else if (error.request) {
-        console.error("No response from server", error.request);
-        setError("No response from server. Please try again.");
-        toast.error("No response from server. Please try again.", {
+          autoClose: 5000, // Close after 5 seconds
+        });
+        navigate("/dashboard"); 
+      } 
+     
+     
+    
+    } catch (error: any) {
+     console.log(error);
+       if (error.request) {
+        console.error( error.response.data.message );
+        setError(error.response.data.message );
+        toast.error( error.response.data.message, {
           position: "top-right",
           autoClose: 5000,
         });
@@ -66,7 +73,7 @@ const LoginCard: React.FC = () => {
 
   return (
     <div className="h-5/6 w-4/6 bg-white flex justify-center items-center rounded-3xl shadow-slate-800 shadow-2xl">
-      <div className="w-1/2 h-full sm:hidden md:hidden lg:block">
+      <div className="w-1/2 h-full">
         <img
           src={loginImage}
           alt="Login"
@@ -77,9 +84,26 @@ const LoginCard: React.FC = () => {
       <div className="w-1/2 flex flex-col h-full justify-around items-center">
         <h1 className="text-6xl font-serif text-teal-950 font-bold">DSA Hub</h1>
         <hr className="w-11/12 border-t-1 border-black" />
-        <h1 className="text-4xl font-bold text-black font-sans">Login</h1>
+        <h1 className="text-4xl font-bold text-black font-sans">Register</h1>
       
         <form className="flex flex-col h-1/2 w-3/4 justify-evenly" onSubmit={handleLogin}>
+        <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Name
+            </label>
+            <div className="relative w-full">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+                placeholder="Enter your Name"
+                className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                <FaUser className="text-gray-400" />
+              </div>
+            </div>
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Email
@@ -121,14 +145,14 @@ const LoginCard: React.FC = () => {
           </div>
           {error && <p className="text-red-500">{error}</p>}
           <button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600">
-            Login
+            Create Account
           </button>
         </form>
         <div className="flex justify-center items-center space-x-2"> 
-          <p>Do not have a account,</p>
+          <p>Already have a account,</p>
           <button onClick={()=>{
-            navigate('/register')
-          }}>Register</button>
+            navigate('/login')
+          }}>Login</button>
         </div>
      <div className="h-20"></div>
       </div>
@@ -136,4 +160,4 @@ const LoginCard: React.FC = () => {
   );
 };
 
-export default LoginCard;
+export default RegisterCard;
