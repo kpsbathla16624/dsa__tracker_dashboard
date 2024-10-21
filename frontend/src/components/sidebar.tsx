@@ -24,8 +24,8 @@ const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
   };
 
   return (
-    <aside className="h-screen w-min">
- <nav className="h-full flex flex-col bg-black bg-opacity-30 backdrop-blur-2xl border-r border-gray-200 shadow-md">
+    <aside className="h-screen w-min ">
+ <nav className="h-full flex flex-col bg-gray-900 bg-opacity-80 backdrop-blur-xl border-r border-gray-200 shadow-md">
         <div className="p-4 pb-2 flex justify-between items-center">
           <h1 className={`overflow-hidden transition-all font-serif text-teal-400 text-3xl font-bold ${expanded ? "w-48" : "w-0"}`}>
             DSA Hub
@@ -49,7 +49,7 @@ const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
               <span className="text-xs text-white text-opacity-80" >kamal@gmail.com</span>
             </div>
             <button
-              onClick={handleLogout} // Attach the logout handler
+              onClick={handleLogout} 
               className="ml-3 bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition"
             >
               Logout
@@ -76,12 +76,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ icon, text, active, al
   return (
     <li className={`flex items-center relative py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? "bg-gradient-to-r from-teal-200 to-teal-400 text-indigo-800" : "hover:bg-indigo-50 hover:text-black text-white"}`}>
       {icon}
-      <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
+      <span className={`overflow-hidden  transition-all  ${expanded ? "w-52 ml-3" : "w-0"}`}>
         {text}
       </span>
       {alert && <div className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${expanded ? "" : "top-2"}`}></div>}
       {!expanded && (
-        <div className="absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
+        <div className="absolute z-50 left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0">
           {text}
         </div>
       )}

@@ -2,7 +2,6 @@
 import { Router } from 'express';
 import { GetUserById, loginUser,registerUser, UpdateUser } from '../controllers/userContoller';
 import { authenticateJWT } from '../middleware/authenticateJWT';
-import { AddprofileTOUser } from '../controllers/ProfileContoller';
 
 const userrouter = Router();
 
@@ -16,7 +15,6 @@ userrouter.get('/authenticate', authenticateJWT, (req:any, res:any) => {
     });
 });
 userrouter.get('/getuserbyId',GetUserById);
-userrouter.post('/addProfiles',AddprofileTOUser);
 userrouter.post('/updateUser',UpdateUser);
 
 

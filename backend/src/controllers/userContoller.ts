@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import User, { IUser } from "../model/userModel";
 import mongoose from "mongoose";
 import { ObjectId } from "mongodb";
-import { Iprofile } from "../model/profileModel";
+
 
 const SECRET_KEY = "7sQ8B#fH&3y^A!jKpLq9R8$g5vT@eF&nJzYx1wC2^uZ@oS#eA";
 
@@ -108,16 +108,8 @@ export async function UpdateUser(req: any, res: any) {
       return res.status(404).json({ message: "User doesn't exist" });
     }
     const newUser = req.body;
-   const updatedUser: Partial<IUser> = {};
-
-   if (newUser.email !== undefined) updatedUser.email = newUser.email; 
-    if (newUser.name !== undefined) updatedUser.name = newUser.name; 
-    if (newUser.profiles !== undefined) {
-     
-      updatedUser.profiles = newUser.profiles;
-    }
-
-    updatedUser.password = user.password; 
+   
+    newUser.password = user.password; 
     
     
 
@@ -126,7 +118,7 @@ export async function UpdateUser(req: any, res: any) {
 
     const result = await collection?.findOneAndUpdate(
       { _id: objectId }, 
-      {$set: updatedUser},
+      {$set: newUser},
       {returnDocument:"after"} 
     );
 

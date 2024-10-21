@@ -1,14 +1,16 @@
 // models/User.ts
 import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { Iprofile, profileSchema } from './profileModel';
+
 
 export interface IUser extends Document {
   email: string;
   password: string;
   name:string | null;
-  profiles:Iprofile[] |[],
-  
+  leetcode: String|null;
+  codeforces:string|null;
+  codechef:string|null;
+
   comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
 
@@ -17,7 +19,10 @@ const userSchema: Schema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   name: { type: String, default: null },
-  profiles: { type: [profileSchema], default: [] }, // Profiles is an array of profileSchema
+  leetcode: { type: String, default: null },
+  codeforces: { type: String, default: null },
+  codechef: { type: String, default: null },
+
 });
 
 // Hash the password before saving the user
