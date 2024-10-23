@@ -10,6 +10,7 @@ import CurrentRating from "../components/currentRating";
 import CodeforcesRatingGraph from "../components/codeforcesLinechart";
 import HeatMap from "../components/heatmap";
 import LeetcodeQuestionCount from "../components/leetcodeQuestionCount";
+import LoadingSpinner from "../components/loading";
 
 interface User {
   id: string;
@@ -99,7 +100,7 @@ function Dashboard() {
       if (fetchedUser.leetcode) {
         console.log("Fetching LeetCode data for", fetchedUser.leetcode);
         const leetcodeResponse = await fetch(
-          `http://localhost:4000/skillStats/${fetchedUser.leetcode}`
+          `https://leetcodeapi-q4qx.onrender.com/skillStats/${fetchedUser.leetcode}`
         );
         if (leetcodeResponse.ok) {
           const leetcodeData = await leetcodeResponse.json();
@@ -145,7 +146,7 @@ function Dashboard() {
   }
 
   if (loading) {
-    return <div className="text-white">Loading...</div>;
+    return <LoadingSpinner/>
   }
 
   if (error) {

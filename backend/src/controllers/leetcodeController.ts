@@ -12,7 +12,7 @@ export default async function leetcodeProfileController(req: any, res: any) {
 
     // Fetch data from the LeetCode API
     const leetcodeResponse = await axios.get(
-      `http://localhost:4000/userProfile/${username}`
+      `https://leetcodeapi-q4qx.onrender.com/userProfile/${username}`
     );
 
     // If the response is successful, send data

@@ -7,7 +7,7 @@ const CurrentRating: React.FC<userprops> = ({ profiles }) => {
   );
   async function GetLeetcodeContestData(userid: String) {
     const contestResponse = await fetch(
-      `http://localhost:4000/${userid}/contest`
+      `https://leetcodeapi-q4qx.onrender.com/${userid}/contest`
     );
     if (contestResponse.ok) {
       const contestdata = await contestResponse.json();
