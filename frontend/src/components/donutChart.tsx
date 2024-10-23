@@ -57,7 +57,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data ,platform}) => {
   };
 
   return (  
-    <div className="w-[600px]  justify-center h-min  max-w-5xl mx-auto my-2 p-4 items-start border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-tr from-gray-800 via-black to-gray-800 bg-blur-xl">
+    <div className="w-[450px]  justify-center h-min  max-w-5xl mx-auto my-2 p-4 items-start border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-tr from-gray-800 via-black to-gray-800 bg-blur-xl">
       <h2 className="text-center text-white font-bold mb-4 mt-10">Tag Wise Questions {platform} </h2>
      
         <div className="w-full h-[300px] ">

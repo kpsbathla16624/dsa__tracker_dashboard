@@ -100,7 +100,7 @@ const   BarChart: React.FC<BarChartProps> = ({ profiles }) => {
   };
 console.log(data);
   return (
-    <div className="w-full max-w-[450px] h-[250px] justify-evenly flex flex-col my-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
+    <div className="w-full max-w-[450px] h-[300px] justify-evenly flex flex-col my-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
       <h1 className='text-white'>
         Total Questions :{" "} 
         {Number(profiles.codeForces.total) +

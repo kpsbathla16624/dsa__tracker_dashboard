@@ -10,4 +10,35 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none; /* Chrome, Safari, and Opera */
   }
+
+  .color-empty {
+    fill: #ebedf0;
+  }
+  .color-scale-1 {
+    fill: #9be9a8;
+  }
+  .color-scale-2 {
+    fill: #40c463;
+  }
+  .color-scale-3 {
+    fill: #30a14e;
+  }
+  .color-scale-4 {
+    fill: #216e39;
+   
+  }
+  /* Add this CSS for month label styling */
+.month-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.month-labels span {
+  font-weight: bold;
+  color: #fff; /* Adjust the color as needed */
+}
+
+  
   

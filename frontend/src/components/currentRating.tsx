@@ -24,11 +24,11 @@ const CurrentRating: React.FC<userprops> = ({ profiles }) => {
   }, [profiles.leetCode.username]);
 
   return (
-    <div className=" h-min flex flex-col justify-center items-center  my-2 p-2 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
+    <div className=" h-[300px] flex flex-col justify-center items-center  my-2 p-2 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
       <h1 className="text-white font-bold text-xl ">Ratings</h1>
       <hr className="text-white border-white w-full" />
-      <div className="flex flex-col my-2 justify-start w-full  items-start">
-        <h2 className="text-teal-500 text-lg font-bold">CodeForces</h2>
+      <div className="flex flex-col my-0 justify-start w-full  items-start">
+        <h2 className="text-teal-500 text-lg font-bold">CodeForces{" "}({profiles.codeForces.rank})</h2>
         <h1 className="text-white">
           {" "}
           Current Rating: {profiles.codeForces.rating}
@@ -39,7 +39,8 @@ const CurrentRating: React.FC<userprops> = ({ profiles }) => {
         </h1>
       </div>
       <div className="flex flex-col my-2 justify-start w-full  items-start">
-        <h2 className="text-teal-500 text-lg font-bold">CodeChef</h2>
+        <h2 className="text-teal-500 text-lg font-bold">CodeChef ({profiles.codeChef.stars})</h2>
+        
         <h1 className="text-white">
           {" "}
           Current Rating: {profiles.codeChef.currentRating}

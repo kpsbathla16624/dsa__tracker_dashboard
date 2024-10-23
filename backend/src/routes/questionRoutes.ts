@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { AddQuestion, getAllQuestions } from '../controllers/questionController';
+import getHeatMapdata, { AddQuestion, getAllQuestions } from '../controllers/questionController';
 
- const questionRouter = Router();
+ const combinedDataRouter = Router();
 
- questionRouter.get('/allQuestions',getAllQuestions);
- questionRouter.post('/postQuestion',AddQuestion);
+ combinedDataRouter.get('/allQuestions',getAllQuestions);
+ combinedDataRouter.post('/postQuestion',AddQuestion);
+ combinedDataRouter.get('/getHeatmapData',getHeatMapdata);
+ 
 
- export default questionRouter;
+ export default combinedDataRouter;

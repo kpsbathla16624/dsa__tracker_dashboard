@@ -7,6 +7,9 @@ import BarChart from "../components/questioncountBarGraph";
 import DonutChart from "../components/donutChart";
 import CodechefRatingGraph from "../components/linechart";
 import CurrentRating from "../components/currentRating";
+import CodeforcesRatingGraph from "../components/codeforcesLinechart";
+import HeatMap from "../components/heatmap";
+import LeetcodeQuestionCount from "../components/leetcodeQuestionCount";
 
 interface User {
   id: string;
@@ -28,10 +31,14 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState<"Codeforces" | "LeetCode">(
     "Codeforces"
   );
+  const [RatingactiveTab, setRatingActiveTab] = useState<"Codeforces" | "CodeChef">(
+    "Codeforces"
+  );
   const [codechefProfile, setCodechefProfile] = useState<Record<string, any>>(
     {}
   );
   const [error, setError] = useState<string | null>(null);
+  const [codeforcesRatingData, setCodeforcesRatingData] = useState<any | null>({})
 
   useEffect(() => {
     if (id) {
@@ -74,6 +81,14 @@ function Dashboard() {
           setCfTagCounts(profileData.tagcount || {});
         } else {
           console.warn("No Codeforces data available.");
+        }
+        const contestresponse = await fetch(`https://codeforces.com/api/user.rating?handle=${fetchedUser.codeforces}`);
+        if (contestresponse.ok) {
+          const contestData = await contestresponse.json();
+          console.log("Codeforces contest data:", contestData);
+          setCodeforcesRatingData(contestData.result);
+        } else {
+          console.warn("No Codeforces contest data available.");
         }
       } else {
         console.log("No Codeforces username provided");
@@ -136,18 +151,23 @@ function Dashboard() {
   if (error) {
     return <div className="text-white">{error}</div>;
   }
+  if (!user?.codechef && !user?.codeforces && !user?.leetcode) {
+    return <div>
+      <h1 className="text-white">Please add your profiles to see the dashboard</h1>
+    </div>
+  }
 
   return (
-    <div className="flex overflow-y-auto hide-scrollbar  h-full justify-start items-start">
+    <div className="flex overflow-y-auto hide-scrollbar pr-5  h-full justify-start items-start">
       <div>
         {user ? (
           <>
             <Welcomebar user={user} />
             <div className="pl-5 flex flex-col justify-start items-center">
               {profiles ? (
-                <div className="w-full h-full -z-50 flex space-x-4 items-start justify-start">
+                <div className="w-full h-full flex space-x-4  items-start justify-start">
                   <BarChart profiles={profiles} />
-                  <div className="relative w-full">
+                  {/* <div className="relative w-full">
                     {codechefProfile.ratingData ? (
                       <CodechefRatingGraph
                         ratingData={codechefProfile.ratingData}
@@ -155,7 +175,53 @@ function Dashboard() {
                     ) : (
                       <div>No Codechef data available</div>
                     )}
+                  </div> */}
+                  <div className="relative justify-start items-start flex w-full">
+                  <div className="absolute m-2 top-0 left-0 z-10 flex space-x-4 p-2">
+                    {codechefProfile.ratingData && (
+                      <button
+                        className={`px-4 py-2 rounded-md ${
+                          RatingactiveTab === "CodeChef"
+                            ? "bg-teal-500 text-white"
+                            : "bg-gray-700 text-gray-200"
+                        }`}
+                        onClick={() => setRatingActiveTab("CodeChef")}
+                      >
+                        CodeChef
+                      </button>
+                    )}
+
+                    <button
+                      className={`px-4 py-2 rounded-md ${
+                        RatingactiveTab === "Codeforces"
+                          ? "bg-teal-500 text-white"
+                          : "bg-gray-700 text-gray-200"
+                      }`}
+                      onClick={() => setRatingActiveTab("Codeforces")}
+                    >
+                      Codeforces
+                    </button>
                   </div>
+
+                  <div className="relative w-full">
+                    {RatingactiveTab === "CodeChef" ? (
+                     codechefProfile.ratingData ? (
+                      <CodechefRatingGraph
+                        ratingData={codechefProfile.ratingData}
+                      />
+                    ) : (
+                      <div>No Codechef data available</div>
+                    )
+                    ) : codeforcesRatingData ? (
+                      <CodeforcesRatingGraph
+                        ratingData ={codeforcesRatingData}
+                      />
+                    ) : (
+                      <div>No Codechef data available</div>
+                    )}
+                  </div>
+                </div>
+
                   <div className="w-[520px] h-56  ">
                     <CurrentRating profiles={profiles} />
                   </div>
@@ -164,8 +230,8 @@ function Dashboard() {
                 <p>No profiles found</p>
               )}
 
-              <div className="flex w-full justify-start items-start ">
-                <div className="relative justify-start items-start flex w-full">
+              <div className="flex w-full  justify-start items-start space-x-4   ">
+                <div className="relative justify-start items-start flex w-min">
                   <div className="absolute m-2 top-0 left-0 z-10 flex space-x-4 p-2">
                     {Object.keys(cfTagCounts).length > 0 && (
                       <button
@@ -206,7 +272,15 @@ function Dashboard() {
                     )}
                   </div>
                 </div>
-                <div className=" w-[600px]"></div>
+               <div className="w-full flex  flex-col justify-start items-start   h-full">
+                <HeatMap codechefId={user.codechef ||""} codeforcesId={user.codeforces||""} leetcodeId={user.leetcode||""}/>
+                {/* <div className="w-full">
+
+              <LeetcodeQuestionCount leetcodedata={profiles.leetCode}/>
+               </div> */}
+               </div>
+               
+
               </div>
             </div>
           </>
