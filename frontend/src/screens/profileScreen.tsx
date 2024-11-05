@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/loading";
 import User from "../models/userModel";
 import { RootState } from "../stores/userStore";
+import host from "../consts";
 
 function ProfileScreen() {
   const id = useSelector((state: RootState) => state.userId.id);
@@ -15,7 +16,7 @@ function ProfileScreen() {
     const fetchUser = async () => {
       setLoading(true);
       console.log("Fetching user with id:", id);
-      const response = await fetch(`/api/auth/getuserbyId?id=${id}`);
+      const response = await fetch(` ${host}/api/auth/getuserbyId?id=${id}`);
       if (!response.ok) throw new Error("Failed to fetch user");
 
       const fetchedUser = await response.json();
@@ -101,7 +102,7 @@ function ProfileScreen() {
                 codechef: user.codechef,
               }
               
-              const response = await fetch(`/api/auth/updateUser?id=${user._id}`, {
+              const response = await fetch(`${host}/api/auth/updateUser?id=${user._id}`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

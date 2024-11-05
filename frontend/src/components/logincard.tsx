@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"; // If you're using React Router
 import { toast } from 'react-toastify'; // Import toast and ToastContainer
 import 'react-toastify/dist/ReactToastify.css';
 import loginImage from '../assets/login.jpeg';
+import host from "../consts";
 
 const LoginCard: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +23,7 @@ const LoginCard: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post(`${host}/api/auth/login`, {
         email: email,
         password: password,
       });

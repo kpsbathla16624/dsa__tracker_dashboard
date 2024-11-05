@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setid } from "./stores/slices/userslice";
+import host from "./consts";
 
 interface ProtectedRouteProps {
   children: ReactNode; 
@@ -22,7 +23,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         navigate("/login");
       } else {
         try {
-          const response = await fetch('/api/auth/authenticate', {
+          const response = await fetch(`${host}/api/auth/authenticate`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
