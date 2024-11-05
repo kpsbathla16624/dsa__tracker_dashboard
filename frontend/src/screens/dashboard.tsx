@@ -199,7 +199,7 @@ function Dashboard() {
                     </button>
                   </div>
 
-                  <div className="relative w-fit ">
+                  <div className="relative w-full ">
                     {RatingactiveTab === "CodeChef" ? (
                      codechefProfile.ratingData ? (
                       <CodechefRatingGraph
