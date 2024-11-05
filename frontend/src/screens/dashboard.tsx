@@ -218,7 +218,7 @@ function Dashboard() {
                   </div>
                 </div>
 
-                  <div className=" h-56  ">
+                  <div className="w-[520px] h-56  ">
                     <CurrentRating profiles={profiles} />
                   </div>
                 </div>
