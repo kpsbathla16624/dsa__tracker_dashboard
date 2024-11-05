@@ -11,6 +11,7 @@ import Welcomebar from "../components/welcomebar";
 import getUserProfile from "../functions/getuserProfiles";
 import User from "../models/userModel";
 import { RootState } from "../stores/userStore";
+import host from "../consts";
 
 
 
@@ -45,7 +46,7 @@ function Dashboard() {
       setError(null);
 
       console.log("Fetching user with id:", id);
-      const response = await fetch(`/api/auth/getuserbyId?id=${id}`);
+      const response = await fetch(`${host}/api/auth/getuserbyId?id=${id}`);
       if (!response.ok) throw new Error("Failed to fetch user");
 
       const fetchedUser = await response.json();
@@ -67,7 +68,7 @@ function Dashboard() {
       if (fetchedUser.codeforces) {
         console.log("Fetching Codeforces profile for", fetchedUser.codeforces);
         const profileResponse = await fetch(
-          `/api/codeforces/getcodeforcesProfile?username=${fetchedUser.codeforces}`
+          `${host}/api/codeforces/getcodeforcesProfile?username=${fetchedUser.codeforces}`
         );
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();

@@ -1,3 +1,5 @@
+import host from "../consts";
+
 export default async function getUserProfile(
   codeChefUsername: string | null,
   codeForcesUsername: string | null,
@@ -9,13 +11,13 @@ export default async function getUserProfile(
 
     // Push valid fetch requests to the array
     if (codeChefUsername) {
-      fetchPromises.push(fetch(`/api/codechef/getCodeChefprofile?username=${codeChefUsername}`));
+      fetchPromises.push(fetch(`${host}/api/codechef/getCodeChefprofile?username=${codeChefUsername}`));
     }
     if (codeForcesUsername) {
-      fetchPromises.push(fetch(`/api/codeforces/getCodeforcesprofile?username=${codeForcesUsername}`));
+      fetchPromises.push(fetch(`${host}/api/codeforces/getCodeforcesprofile?username=${codeForcesUsername}`));
     }
     if (leetCodeUsername) {
-      fetchPromises.push(fetch(`/api/leetcode/getLeetcodeProfile?username=${leetCodeUsername}`));
+      fetchPromises.push(fetch(`${host}/api/leetcode/getLeetcodeProfile?username=${leetCodeUsername}`));
     }
 
     const responses = await Promise.all(fetchPromises);

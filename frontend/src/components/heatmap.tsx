@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
+import host from '../consts';
 
 interface Submission {
     date: string;
@@ -22,7 +23,7 @@ const HeatMap: React.FC<HeatMapProps> = ({ codechefId, codeforcesId, leetcodeId 
         const fetchHeatmapData = async () => {
             try {
                 const response = await fetch(
-                    `/api/heatmap/getHeatmapData?codechefid=${codechefId}&codeforcesid=${codeforcesId}&leetcodeid=${leetcodeId}`
+                    `${host}/api/heatmap/getHeatmapData?codechefid=${codechefId}&codeforcesid=${codeforcesId}&leetcodeid=${leetcodeId}`
                 );
                 const data = await response.json();
                 const combinedData = processCombinedData(data);
