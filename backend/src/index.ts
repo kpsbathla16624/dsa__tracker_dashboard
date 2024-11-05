@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './routes/router';
+import cors from 'cors';
 
 
 
@@ -16,7 +17,7 @@ async function start() {
 
         app.use(express.json({ limit: '1000kb' }));
 
-        
+        app.use(cors());
         app.use('/api', router); 
         app.get('/', (req, res) => {
             res.send('Hello World');
