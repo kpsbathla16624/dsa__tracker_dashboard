@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { BsFillPersonFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
-import { RootState } from "../stores/userStore";
-import User from "../models/userModel";
-import { BsFillPersonFill, BsPersonCircle } from "react-icons/bs";
-import LoadingSpinner from "../components/loading";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/loading";
+import User from "../models/userModel";
+import { RootState } from "../stores/userStore";
 
 function ProfileScreen() {
   const id = useSelector((state: RootState) => state.userId.id);

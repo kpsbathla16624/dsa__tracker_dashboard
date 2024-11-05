@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import axios from "axios"; // To handle API requests
-import { useNavigate } from "react-router-dom"; // If you're using React Router
-import loginImage from '../assets/login.jpeg';
-import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; 
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { useNavigate } from "react-router-dom"; // If you're using React Router
+import { toast } from 'react-toastify'; // Import toast and ToastContainer
+import 'react-toastify/dist/ReactToastify.css';
+import loginImage from '../assets/login.jpeg';
 
 const LoginCard: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);

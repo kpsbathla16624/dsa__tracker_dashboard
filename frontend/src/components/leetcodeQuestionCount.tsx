@@ -1,4 +1,3 @@
-import React from 'react'
 
 function LeetcodeQuestionCount(leetcodedata:any) {
     const data = leetcodedata.leetcodedata;

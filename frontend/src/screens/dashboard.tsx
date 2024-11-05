@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../stores/userStore";
+import CodeforcesRatingGraph from "../components/codeforcesLinechart";
+import CurrentRating from "../components/currentRating";
+import DonutChart from "../components/donutChart";
+import HeatMap from "../components/heatmap";
+import CodechefRatingGraph from "../components/linechart";
+import LoadingSpinner from "../components/loading";
+import BarChart from "../components/questioncountBarGraph";
 import Welcomebar from "../components/welcomebar";
 import getUserProfile from "../functions/getuserProfiles";
-import BarChart from "../components/questioncountBarGraph";
-import DonutChart from "../components/donutChart";
-import CodechefRatingGraph from "../components/linechart";
-import CurrentRating from "../components/currentRating";
-import CodeforcesRatingGraph from "../components/codeforcesLinechart";
-import HeatMap from "../components/heatmap";
-import LeetcodeQuestionCount from "../components/leetcodeQuestionCount";
-import LoadingSpinner from "../components/loading";
 import User from "../models/userModel";
-import Trial from "../components/trial";
+import { RootState } from "../stores/userStore";
+
 
 
 
@@ -158,7 +157,7 @@ function Dashboard() {
         {user ? (
           <>
             <Welcomebar user={user} />
-            <Trial/>
+         
             <div className="pl-5 flex flex-col justify-start items-center">
               {profiles ? (
                 <div className="w-full h-full flex space-x-4  items-start justify-start">
