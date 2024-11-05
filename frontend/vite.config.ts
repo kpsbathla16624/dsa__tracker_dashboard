@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000', // Your backend server
+        target: 'http://dsa-tracker-dashboard-hhgo.vercel.app', // Your backend server
         changeOrigin: true,
       },
     },
