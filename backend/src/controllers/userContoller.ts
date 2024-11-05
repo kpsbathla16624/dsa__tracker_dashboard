@@ -47,8 +47,9 @@ export async function loginUser(req: any, res: any) {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-
+    
     // Generate JWT token
+    
     const token = jwt.sign({ id: user._id, email: user.email }, SECRET_KEY, {
       expiresIn: "1h",
     });

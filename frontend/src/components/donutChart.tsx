@@ -65,7 +65,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data ,platform}) => {
             data={chartData} 
             options={options}
             width={300} // Increase the width of the chart
-            height={500} // Increase the height of the chart
+            height={500} 
           />
        
        

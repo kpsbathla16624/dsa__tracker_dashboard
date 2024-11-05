@@ -11,16 +11,10 @@ import CodeforcesRatingGraph from "../components/codeforcesLinechart";
 import HeatMap from "../components/heatmap";
 import LeetcodeQuestionCount from "../components/leetcodeQuestionCount";
 import LoadingSpinner from "../components/loading";
+import User from "../models/userModel";
+import Trial from "../components/trial";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  leetcode: string | null;
-  codeforces: string | null;
-  codechef: string | null;
-  tagCounts: Record<string, number>;
-}
+
 
 function Dashboard() {
   const id = useSelector((state: RootState) => state.userId.id);
@@ -100,7 +94,7 @@ function Dashboard() {
       if (fetchedUser.leetcode) {
         console.log("Fetching LeetCode data for", fetchedUser.leetcode);
         const leetcodeResponse = await fetch(
-          `https://leetcodeapi-q4qx.onrender.com/skillStats/${fetchedUser.leetcode}`
+          `https://leetcodeapi-production.up.railway.app/skillStats/${fetchedUser.leetcode}`
         );
         if (leetcodeResponse.ok) {
           const leetcodeData = await leetcodeResponse.json();
@@ -146,7 +140,7 @@ function Dashboard() {
   }
 
   if (loading) {
-    return <LoadingSpinner/>
+    return <LoadingSpinner/>;
   }
 
   if (error) {
@@ -164,6 +158,7 @@ function Dashboard() {
         {user ? (
           <>
             <Welcomebar user={user} />
+            <Trial/>
             <div className="pl-5 flex flex-col justify-start items-center">
               {profiles ? (
                 <div className="w-full h-full flex space-x-4  items-start justify-start">

@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { setid } from "./stores/slices/userslice";
 
 interface ProtectedRouteProps {
-  children: ReactNode; // Specify that children should be ReactNode type
+  children: ReactNode; 
+
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -41,11 +42,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           } else {
             const errorData = await response.json();
             console.error('Failed to fetch protected data:', response.status, errorData);
-            navigate("/login"); // Redirect to login if the request fails
+            navigate("/login"); 
           }
         } catch (error) {
           console.error('Error during fetch:', error);
-          navigate("/login"); // Redirect to login on fetch error
+          navigate("/login"); 
         }
       }
     };

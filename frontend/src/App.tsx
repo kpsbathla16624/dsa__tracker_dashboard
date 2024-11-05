@@ -30,8 +30,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/profile" element={<ProfileScreen/>}/>
-            <Route path="*" element={<div className="text-white"> route not defined</div>} />
+            <Route path="*" element={<div className="text-white w-full h-full flex justify-center items-center text-2xl"><h1>This Section is Under Devlopment</h1></div>} />
           </Routes>
         </div>
       </div>

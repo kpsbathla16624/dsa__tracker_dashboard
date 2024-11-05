@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface UserData {
-    id: string;
+    _id?: string;
     name: string;
     email: string;
   }
