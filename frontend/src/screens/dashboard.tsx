@@ -172,7 +172,7 @@ function Dashboard() {
                       <div>No Codechef data available</div>
                     )}
                   </div> */}
-                  <div className="relative justify-start items-start flex w-full">
+                  <div className="relative justify-start items-start flex">
                   <div className="absolute m-2 top-0 left-0 z-10 flex space-x-4 p-2">
                     {codechefProfile.ratingData && (
                       <button
