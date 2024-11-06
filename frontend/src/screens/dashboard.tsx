@@ -161,7 +161,7 @@ function Dashboard() {
          
             <div className="pl-5 flex flex-col justify-start items-center">
               {profiles ? (
-                <div className="w-full h-full flex space-x-4  items-start justify-start">
+                <div className="w-full  h-full grid grid-cols-4">
                   <BarChart profiles={profiles} />
                   {/* <div className="relative w-full">
                     {codechefProfile.ratingData ? (
@@ -172,7 +172,7 @@ function Dashboard() {
                       <div>No Codechef data available</div>
                     )}
                   </div> */}
-                  <div className="relative justify-start items-start flex">
+                  <div className="relative col-span-2 justify-start items-start flex">
                   <div className="absolute m-2 top-0 left-0 z-10 flex space-x-4 p-2">
                     {codechefProfile.ratingData && (
                       <button
@@ -199,7 +199,7 @@ function Dashboard() {
                     </button>
                   </div>
 
-                  <div className="relative w-[720px] ">
+                  <div className="relative max-w-[720px] ">
                     {RatingactiveTab === "CodeChef" ? (
                      codechefProfile.ratingData ? (
                       <CodechefRatingGraph
