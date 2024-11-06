@@ -24,7 +24,7 @@ function App() {
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  <div className="flex  hide-scrollbar -z-50 justify-center items-center flex-col w-full h-full">
+                  <div className="  hide-scrollbar -z-50  w-full h-full">
                   <Dashboard />
                   </div>
                 </ProtectedRoute>

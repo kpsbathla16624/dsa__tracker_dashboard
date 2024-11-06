@@ -153,7 +153,7 @@ function Dashboard() {
   }
 
   return (
-    <div className=" w-full flex overflow-y-auto hide-scrollbar pr-2 h-full justify-start items-start">
+    <div className=" w-full flex overflow-y-auto hide-scrollbar h-full justify-start items-start">
       <div>
         {user ? (
           <>
@@ -161,8 +161,10 @@ function Dashboard() {
          
             <div className="pl-5 w-full flex flex-col justify-start items-center">
               {profiles ? (
-                <div className="w-full  h-full  space-x-6 grid grid-cols-4">
+                <div className="w-full  h-full  space-x-6 grid grid-cols-6">
+                  <div className="col-span-2">
                   <BarChart profiles={profiles} />
+                  </div>
                   {/* <div className="relative w-full">
                     {codechefProfile.ratingData ? (
                       <CodechefRatingGraph
@@ -172,7 +174,7 @@ function Dashboard() {
                       <div>No Codechef data available</div>
                     )}
                   </div> */}
-                  <div className="relative col-span-2    justify-start items-start flex">
+                  <div className="relative col-span-3    justify-start items-start flex">
                   <div className="absolute  m-2 top-0 left-0 z-10 flex space-x-4 p-2">
                     {codechefProfile.ratingData && (
                       <button
