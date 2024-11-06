@@ -54,7 +54,7 @@ const CodechefRatingGraph: React.FC<CodechefRatingGraphProps> = ({ ratingData })
   }));
 
   return (
-    <div className="w-full max-w-[700px] h-[300px]  justify-center items-center flex flex-col my-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
+    <div className="h-[300px]  justify-center items-center flex flex-col my-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
       <h1 className="text-white font-bold mt-10">CodeChef Rating Graph</h1>
       <ResponsiveContainer>
         <LineChart
