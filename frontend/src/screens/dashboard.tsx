@@ -172,8 +172,8 @@ function Dashboard() {
                       <div>No Codechef data available</div>
                     )}
                   </div> */}
-                  <div className="relative  justify-start items-start flex">
-                  <div className="absolute col-span-2 m-2 top-0 left-0 z-10 flex space-x-4 p-2">
+                  <div className="relative col-span-2  justify-start items-start flex">
+                  <div className="absolute  m-2 top-0 left-0 z-10 flex space-x-4 p-2">
                     {codechefProfile.ratingData && (
                       <button
                         className={`px-4 py-2 rounded-md ${
@@ -199,7 +199,7 @@ function Dashboard() {
                     </button>
                   </div>
 
-                  <div className="relative  ">
+                  <div className="relative col-span-2  ">
                     {RatingactiveTab === "CodeChef" ? (
                      codechefProfile.ratingData ? (
                       <CodechefRatingGraph
