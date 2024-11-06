@@ -159,7 +159,7 @@ function Dashboard() {
           <>
             <Welcomebar user={user} />
          
-            <div className="pl-5 flex flex-col justify-start items-center">
+            <div className="pl-5 w-full flex flex-col justify-start items-center">
               {profiles ? (
                 <div className="w-full  h-full  space-x-6 grid grid-cols-4">
                   <BarChart profiles={profiles} />
