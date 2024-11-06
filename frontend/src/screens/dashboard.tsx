@@ -121,7 +121,7 @@ function Dashboard() {
       if (fetchedUser.codechef) {
         console.log("Fetching CodeChef profile for", fetchedUser.codechef);
         const codechefResponse = await fetch(
-          `https://codechef-api.vercel.app/handle/${fetchedUser.codechef}`
+          `https://codechef-api-five.vercel.app/handle/${fetchedUser.codechef}`
         );
         if (codechefResponse.status === 200) {
           const data = await codechefResponse.json();

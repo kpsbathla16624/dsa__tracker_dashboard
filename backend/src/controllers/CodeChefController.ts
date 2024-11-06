@@ -4,7 +4,7 @@ import getCodechefSolvedCount from "../middleware/codechefTotal";
 export default async function getCodeforcesprofile(req:any,res:any) {
    try {
     const {username} = req.query;
-    const codechefdata =  await axios.get(`https://codechef-api.vercel.app/handle/${username}`);
+    const codechefdata =  await axios.get(`https://codechef-api-five.vercel.app/handle/${username}`);
     const count = await getCodechefSolvedCount(username);
     if (codechefdata.status == 200  ) {
         codechefdata.data.total = count;
