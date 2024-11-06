@@ -218,9 +218,9 @@ function Dashboard() {
                   </div>
                 </div>
 
-                  <div className="w-[520px] h-56  ">
+                 
                     <CurrentRating profiles={profiles} />
-                  </div>
+                  
                 </div>
               ) : (
                 <p>No profiles found</p>
