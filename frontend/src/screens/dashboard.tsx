@@ -153,7 +153,7 @@ function Dashboard() {
   }
 
   return (
-    <div className=" w-full flex overflow-y-auto hide-scrollbar pr-5  h-full justify-start items-start">
+    <div className=" w-full flex overflow-y-auto hide-scrollbar pr-2 h-full justify-start items-start">
       <div>
         {user ? (
           <>
