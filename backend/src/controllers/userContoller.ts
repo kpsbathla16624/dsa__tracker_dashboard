@@ -51,7 +51,7 @@ export async function loginUser(req: any, res: any) {
     // Generate JWT token
     
     const token = jwt.sign({ id: user._id, email: user.email }, SECRET_KEY, {
-      expiresIn: "1h",
+      expiresIn: "30d", 
     });
 
     // Convert the Mongoose document to a plain JavaScript object
