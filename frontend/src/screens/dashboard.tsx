@@ -94,7 +94,7 @@ function Dashboard() {
       if (fetchedUser.leetcode) {
         console.log("Fetching LeetCode data for", fetchedUser.leetcode);
         const leetcodeResponse = await fetch(
-          `https://leetcodeapi-production.up.railway.app/skillStats/${fetchedUser.leetcode}`
+          `https://leetcodeapi-pzsr.onrender.com/skillStats/${fetchedUser.leetcode}`
         );
         if (leetcodeResponse.ok) {
           const leetcodeData = await leetcodeResponse.json();
