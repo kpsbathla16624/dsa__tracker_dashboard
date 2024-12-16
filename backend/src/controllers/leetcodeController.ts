@@ -12,7 +12,7 @@ export default async function leetcodeProfileController(req: any, res: any) {
 
     // Fetch data from the LeetCode API
     const leetcodeResponse = await axios.get(
-      `https://leetcodeapi-pzsr.onrender.com/userProfile/${username}`
+      `https://enchanting-freedom-production.up.railway.app/userProfile/${username}`
     );
 
     // If the response is successful, send data
