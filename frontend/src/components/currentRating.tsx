@@ -7,7 +7,7 @@ const CurrentRating: React.FC<userprops> = ({ profiles }) => {
   );
   async function GetLeetcodeContestData(userid: String) {
     const contestResponse = await fetch(
-      `https://enchanting-freedom-production.up.railway.app/${userid}/contest`
+      `https://leetcodeapi-bolt.vercel.app/${userid}/contest`
     );
     if (contestResponse.ok) {
       const contestdata = await contestResponse.json();

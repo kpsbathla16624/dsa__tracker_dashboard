@@ -87,7 +87,7 @@ export async function AddQuestion(req: any, res: any) {
         
         const codechefresponse = await fetch(`https://codechef-api-five.vercel.app/handle/${codechefid}`);
         const codeforcesresponse = await fetch(`https://codeforces.com/api/user.status?handle=${codeforcesid}`);
-        const leetcoderesponse = await fetch(`https://enchanting-freedom-production.up.railway.app/${leetcodeid}/calendar`);
+        const leetcoderesponse = await fetch(`https://leetcodeapi-bolt.vercel.app/${leetcodeid}/calendar`);
         let codechefdata = [];
         if (codechefresponse.status === 404) {
           codechefdata = []
