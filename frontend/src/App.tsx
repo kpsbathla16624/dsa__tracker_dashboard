@@ -7,19 +7,16 @@ import {
   useNavigate,
 } from "react-router-dom";
 import LoginScreen from "./screens/loginscreen";
-import ProtectedRoute from "./protectedroute";
+
 import Dashboard from "./screens/dashboard";
 import { ToastContainer } from "react-toastify";
 import RegisterScreen from "./screens/RegisterScreen";
 import MyNavbar, { SidebarItem } from "./components/sidebar";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { SiCodechef, SiCodeforces, SiLeetcode } from "react-icons/si";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import ProfileScreen from "./screens/profileScreen";
-import { useDispatch, useSelector } from "react-redux";
-import { setid } from "./stores/slices/userslice";
-import host from "./consts";
-import { RootState } from "./stores/userStore";
+
 
 function App() {
   
