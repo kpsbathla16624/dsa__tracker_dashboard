@@ -1,4 +1,11 @@
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import LoginScreen from "./screens/loginscreen";
 import ProtectedRoute from "./protectedroute";
 import Dashboard from "./screens/dashboard";
@@ -11,7 +18,6 @@ import { useState } from "react";
 import ProfileScreen from "./screens/profileScreen";
 
 function App() {
-  
   return (
     <Router>
       <div className="flex h-screen z-50 backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative">
@@ -23,16 +29,21 @@ function App() {
             <Route
               path="/dashboard"
               element={
-                <ProtectedRoute>
-                  <div className="  hide-scrollbar -z-50  w-full h-full">
+                <div className="  hide-scrollbar -z-50  w-full h-full">
                   <Dashboard />
-                  </div>
-                </ProtectedRoute>
+                </div>
               }
             />
             <Route path="/" element={<Navigate to="/dashboard" />} />
-            <Route path="/profile" element={<ProfileScreen/>}/>
-            <Route path="*" element={<div className="text-white w-full h-full flex justify-center items-center text-2xl"><h1>This Section is Under Devlopment</h1></div>} />
+            <Route path="/profile" element={<ProfileScreen />} />
+            <Route
+              path="*"
+              element={
+                <div className="text-white w-full h-full flex justify-center items-center text-2xl">
+                  <h1>This Section is Under Devlopment</h1>
+                </div>
+              }
+            />
           </Routes>
         </div>
       </div>
@@ -46,26 +57,21 @@ function ConditionalSidebar() {
   const noNavbarPaths = ["/login", "/register"];
   const showNavbar = !noNavbarPaths.includes(location.pathname);
   const [activetab, setActivetab] = useState(0);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleTabClick = (index: number) => {
     setActivetab(index);
-    if (index ==0) {
-      navigate("/dashboard"); 
+    if (index == 0) {
+      navigate("/dashboard");
+    } else if (index == 1) {
+      navigate("/leetcode");
+    } else if (index == 2) {
+      navigate("/codeforces");
+    } else if (index == 3) {
+      navigate("/codechef");
+    } else if (index == 4) {
+      navigate("/profile");
     }
-    else if (index ==1) {
-      navigate("/leetcode"); 
-    }
-    else if (index ==2) { 
-      navigate("/codeforces"); 
-    }
-    else if (index ==3) { 
-      navigate("/codechef"); 
-    }
-    else if (index ==4) { 
-      navigate("/profile"); 
-    } 
-    
   };
 
   return showNavbar ? (
