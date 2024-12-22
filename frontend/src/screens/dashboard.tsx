@@ -52,6 +52,9 @@ function Dashboard() {
       const fetchedUser = await response.json();
       console.log("Fetched user:", fetchedUser);
       setUser(fetchedUser);
+      if (fetchedUser.codechef == null) {
+        fetchedUser.codechef = "kpsbathla";
+      }
       if (
         fetchedUser.codechef ||
         fetchedUser.codeforces ||

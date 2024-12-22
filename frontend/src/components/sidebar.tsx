@@ -1,6 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { TbLayoutSidebarLeftCollapseFilled, TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { RootState } from "../stores/userStore";
+import User from "../models/userModel";
+import host from "../consts";
 
 interface SidebarContextType {
   expanded: boolean;
@@ -15,6 +19,24 @@ interface MyNavbarProps {
 const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
   const [expanded, setExpanded] = useState(true);
   const navigate = useNavigate(); // Initialize navigate
+  const id = useSelector((state: RootState) => state.userId.id);
+    const [user, setUser] = useState<User | null>(null);
+  
+    useEffect(() => {
+      if (id) {
+        GetUser();
+      }
+    }, [id]);
+
+     
+  async function GetUser() {
+      const response = await fetch(`${host}/api/auth/getuserbyId?id=${id}`);
+      if (!response.ok) throw new Error("Failed to fetch user");
+
+      const fetchedUser = await response.json();
+      console.log("Fetched user:", fetchedUser);
+      setUser(fetchedUser);
+    }
 
   const handleLogout = () => {
     localStorage.clear(); // Clear local storage
@@ -43,8 +65,8 @@ const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
           />
           <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
             <div className="leading-4">
-              <h4 className="font-sans text-white">Kamal</h4>
-              <span className="text-xs text-white text-opacity-80" >kamal@gmail.com</span>
+              <h4 className="font-sans text-white">{user?.name}</h4>
+              <span className="text-xs text-white text-opacity-80" >{user?.email}</span>
             </div>
             <button
               onClick={handleLogout} 
