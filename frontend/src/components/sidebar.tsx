@@ -64,9 +64,9 @@ const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
             className="w-10 h-10 rounded-lg"
           />
           <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
-            <div className="leading-4">
+            <div className="leading-4 w-1/2x  overflow-hidden ">
               <h4 className="font-sans text-white">{user?.name}</h4>
-              <span className="text-xs w-1/2 text-white text-opacity-80" >{user?.email}</span>
+              <span className="text-xs  overflow-hidden text-white text-opacity-80" >{user?.email}</span>
             </div>
             <button
               onClick={handleLogout} 
