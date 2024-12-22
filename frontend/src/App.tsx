@@ -14,10 +14,15 @@ import RegisterScreen from "./screens/RegisterScreen";
 import MyNavbar, { SidebarItem } from "./components/sidebar";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { SiCodechef, SiCodeforces, SiLeetcode } from "react-icons/si";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileScreen from "./screens/profileScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { setid } from "./stores/slices/userslice";
+import host from "./consts";
+import { RootState } from "./stores/userStore";
 
 function App() {
+  
   return (
     <Router>
       <div className="flex h-screen z-50 backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative">

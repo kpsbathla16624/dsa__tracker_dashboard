@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CodeforcesRatingGraph from "../components/codeforcesLinechart";
 import CurrentRating from "../components/currentRating";
 import DonutChart from "../components/donutChart";
@@ -12,9 +12,8 @@ import getUserProfile from "../functions/getuserProfiles";
 import User from "../models/userModel";
 import { RootState } from "../stores/userStore";
 import host from "../consts";
-
-
-
+import { useNavigate } from "react-router-dom";
+import { setid } from "../stores/slices/userslice";
 
 function Dashboard() {
   const id = useSelector((state: RootState) => state.userId.id);
@@ -33,28 +32,71 @@ function Dashboard() {
     {}
   );
   const [error, setError] = useState<string | null>(null);
-  const [codeforcesRatingData, setCodeforcesRatingData] = useState<any | null>({})
+  const [codeforcesRatingData, setCodeforcesRatingData] = useState<any | null>({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (id) {
-      GetUser();
+  // Memoized authentication check to prevent re-renders from triggering it multiple times
+  const checkAuthentication = useCallback(async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
     }
-  }, [id]);
-  async function GetUser() {
+
+    try {
+      const response = await fetch(`${host}/api/auth/authenticate`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Protected data:", data);
+
+        // Avoid redundant updates
+        if (id !== data.user.id) {
+          dispatch(setid(data.user.id));
+        }
+
+        if (!isAuthenticated) {
+          setIsAuthenticated(true);
+        }
+      } else {
+        console.error("Authentication failed");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error during authentication:", error);
+      navigate("/login");
+    }
+  }, [id, isAuthenticated, dispatch, navigate]);
+
+  // Fetch user data by ID
+  const getUser = useCallback(async () => {
+    if (!id || !isAuthenticated) return;
+
     try {
       setLoading(true);
       setError(null);
 
-      console.log("Fetching user with id:", id);
+      console.log("Fetching user with ID:", id);
       const response = await fetch(`${host}/api/auth/getuserbyId?id=${id}`);
       if (!response.ok) throw new Error("Failed to fetch user");
 
       const fetchedUser = await response.json();
       console.log("Fetched user:", fetchedUser);
       setUser(fetchedUser);
-      if (fetchedUser.codechef == null) {
+
+      if (!fetchedUser.codechef) {
         fetchedUser.codechef = "kpsbathla";
       }
+
       if (
         fetchedUser.codechef ||
         fetchedUser.codeforces ||
@@ -70,26 +112,23 @@ function Dashboard() {
 
       if (fetchedUser.codeforces) {
         console.log("Fetching Codeforces profile for", fetchedUser.codeforces);
+
         const profileResponse = await fetch(
           `${host}/api/codeforces/getcodeforcesProfile?username=${fetchedUser.codeforces}`
         );
         if (profileResponse.ok) {
           const profileData = await profileResponse.json();
-          console.log("Codeforces profile:", profileData);
           setCfTagCounts(profileData.tagcount || {});
-        } else {
-          console.warn("No Codeforces data available.");
         }
-        const contestresponse = await fetch(`https://codeforces.com/api/user.rating?handle=${fetchedUser.codeforces}`);
-        if (contestresponse.ok) {
-          const contestData = await contestresponse.json();
-          console.log("Codeforces contest data:", contestData);
+
+        const contestResponse = await fetch(
+          `https://codeforces.com/api/user.rating?handle=${fetchedUser.codeforces}`
+        );
+        if (contestResponse.ok) {
+          const contestData = await contestResponse.json();
           setCodeforcesRatingData(contestData.result);
-        } else {
-          console.warn("No Codeforces contest data available.");
         }
       } else {
-        console.log("No Codeforces username provided");
         setActiveTab("LeetCode");
         setCfTagCounts({});
       }
@@ -101,7 +140,6 @@ function Dashboard() {
         );
         if (leetcodeResponse.ok) {
           const leetcodeData = await leetcodeResponse.json();
-          console.log("LeetCode data:", leetcodeData);
           const allTags = [
             ...leetcodeData.data.matchedUser.tagProblemCounts.fundamental,
             ...leetcodeData.data.matchedUser.tagProblemCounts.intermediate,
@@ -116,8 +154,6 @@ function Dashboard() {
           );
 
           setLcTagCounts(leetcodeTagCounts);
-        } else {
-          console.warn("No LeetCode data available.");
         }
       }
 
@@ -128,31 +164,41 @@ function Dashboard() {
         );
         if (codechefResponse.status === 200) {
           const data = await codechefResponse.json();
-          console.log("CodeChef profile:", data);
           setCodechefProfile(data);
-        } else {
-          console.warn("No CodeChef data available.");
         }
       }
     } catch (error) {
-      console.error("Error fetching user:", error);
+      console.error("Error fetching user data:", error);
       setError("An error occurred while fetching data. Please try again.");
     } finally {
       setLoading(false);
     }
-  }
+  }, [id, isAuthenticated]);
+
+  // Run authentication check on mount
+  useEffect(() => {
+    checkAuthentication();
+  }, [checkAuthentication]);
+
+  // Fetch user data when `id` or `isAuthenticated` changes
+  useEffect(() => {
+    getUser();
+  }, [id, isAuthenticated, getUser]);
 
   if (loading) {
-    return <LoadingSpinner/>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
     return <div className="text-white">{error}</div>;
   }
+
   if (!user?.codechef && !user?.codeforces && !user?.leetcode) {
-    return <div>
-      <h1 className="text-white">Please add your profiles to see the dashboard</h1>
-    </div>
+    return (
+      <div>
+        <h1 className="text-white">Please add your profiles to see the dashboard</h1>
+      </div>
+    );
   }
 
   return (
