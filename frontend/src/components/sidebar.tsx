@@ -59,14 +59,14 @@ const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
         </sidebarcontext.Provider>
         <div className="border-t flex p-3 items-center">
           <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
+            src="https://t4.ftcdn.net/jpg/00/65/77/27/360_F_65772719_A1UV5kLi5nCEWI0BNLLiFaBPEkUbv5Fv.jpg"
             alt="Profile"
             className="w-10 h-10 rounded-lg"
           />
           <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>
             <div className="leading-4">
               <h4 className="font-sans text-white">{user?.name}</h4>
-              <span className="text-xs text-white text-opacity-80" >{user?.email}</span>
+              <span className="text-xs w-1/2 text-white text-opacity-80" >{user?.email}</span>
             </div>
             <button
               onClick={handleLogout} 

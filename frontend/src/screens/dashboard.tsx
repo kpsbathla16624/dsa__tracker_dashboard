@@ -61,7 +61,7 @@ function Dashboard() {
         fetchedUser.leetcode
       ) {
         const profileData = await getUserProfile(
-          fetchedUser.codechef || null,
+          fetchedUser.codechef || "kpsbathla",
           fetchedUser.codeforces || null,
           fetchedUser.leetcode || null
         );
