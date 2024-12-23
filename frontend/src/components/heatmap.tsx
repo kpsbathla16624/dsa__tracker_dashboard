@@ -250,7 +250,7 @@ const HeatMap: React.FC<HeatMapProps> = ({ codechefId, codeforcesId, leetcodeId 
             ) : (
                 <div className="opacity-85">
                     <CalendarHeatmap
-                        gutterSize={4}
+                        // gutterSize={4}
                         startDate={startDate}
                         endDate={endDate}
                         values={heatmapData}
@@ -269,14 +269,14 @@ const HeatMap: React.FC<HeatMapProps> = ({ codechefId, codeforcesId, leetcodeId 
                                 : 'No submissions'
                         }
                         showMonthLabels={true}
-                        transformDayElement={(element, value) => {
-                            const style = {
-                                fill: !value || value.count === 0 ? '#16191C' : undefined,
-                                backdropFilter: !value || value.count === 0 ? 'blur(20px)' : undefined,
-                                borderRadius: '10px',
-                            };
-                            return React.cloneElement(element as React.ReactElement, { style });
-                        }}
+                        // transformDayElement={(element, value) => {
+                        //     const style = {
+                        //         fill: !value || value.count === 0 ? '#16191C' : undefined,
+                        //         backdropFilter: !value || value.count === 0 ? 'blur(20px)' : undefined,
+                        //         borderRadius: '10px',
+                        //     };
+                        //     return React.cloneElement(element as React.ReactElement, { style });
+                        // }}
                     />
                     <ReactTooltip />
                 </div>
