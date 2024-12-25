@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import getUserProfile from '../functions/getuserProfiles';
-import User from '../models/userModel';
+
 import { userProps } from '../models/profilesmodel';
 
 // Register the components for Chart.js

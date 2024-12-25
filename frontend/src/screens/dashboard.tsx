@@ -290,7 +290,7 @@
 
 // export default Dashboard;
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import QuestionCountGraph from "../components/questioncountBarGraph";
 import RatingBox from "../components/currentRating";
 import HeatMap from "../components/heatmap";
@@ -302,7 +302,6 @@ import { RootState } from "../stores/userStore";
 import { useNavigate } from "react-router-dom";
 import host from "../consts";
 import { setid } from "../stores/slices/userslice";
-import getUserProfile from "../functions/getuserProfiles";
 import LoadingSpinner from "../components/loading";
 
 
