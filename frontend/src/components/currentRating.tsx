@@ -1,8 +1,9 @@
 
 import React, { useEffect, useState } from "react";
 import getUserProfile from "../functions/getuserProfiles";
+import { userProps } from "../models/profilesmodel";
 
-function RatingBox() {
+const RatingBox: React.FC<userProps> = ({ user }) => {
   const [leetcodeContestData, setLeetcodeData] = useState<Record<string, any>>(
     {}
   );
@@ -11,12 +12,12 @@ function RatingBox() {
   const fetchProfiles = async () => {
     setLoading(true);
     const data = await getUserProfile(
-      "kps_bathla",
-      "kpsbathla",
-      "kamalpreet6198"
+      user.codechef,
+     user.codeforces,
+      user.leetcode
     );
     setProfiles(data);
-    await GetLeetcodeContestData("kamalpreet6198");
+    await GetLeetcodeContestData(user.leetcode|| "");
     setLoading(false);
   };
 
@@ -88,7 +89,7 @@ function RatingBox() {
 
           <h1 className="text-white">
             {" "}
-            Max Rating: {leetcodeContestData.contestGlobalRanking || 0}/
+            Global Rating: {leetcodeContestData.contestGlobalRanking || 0}/
             {leetcodeContestData.totalParticipants || 0}
           </h1>
         </div>

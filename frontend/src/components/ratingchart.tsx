@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 
 import CodechefRatingGraph from './codechefLineChart';
 import CodeforcesRatingGraph from './codeforcesLinechart copy';
+import { userProps } from '../models/profilesmodel';
 
 
-function Ratingcharts() {
+const Ratingcharts: React.FC<userProps> = ({ user }) => {
     const [codeforcesRatingData, setCodeforcesRatingData] = useState<any | null>({})
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<"Codeforces" | "CodeChef">(
@@ -16,7 +17,7 @@ function Ratingcharts() {
       );
     async function  getCodeForcesGraph() {
         setLoading(true);
-        const contestresponse = await fetch(`https://codeforces.com/api/user.rating?handle=kpsbathla`);
+        const contestresponse = await fetch(`https://codeforces.com/api/user.rating?handle=${user.codeforces}`);
         if (contestresponse.ok) {
           const contestData = await contestresponse.json();
           console.log("Codeforces contest data:", contestData);
@@ -32,7 +33,7 @@ function Ratingcharts() {
         setLoading(true);
         
         const codechefResponse = await fetch(
-          `https://codechef-api-five.vercel.app/handle/kps_bathla`
+          `https://codechef-api-five.vercel.app/handle/${user.codechef}`
         );
         if (codechefResponse.status === 200) {
           const data = await codechefResponse.json();

@@ -1,3 +1,5 @@
+import User from "./userModel";
+
 export default interface userprops {
     profiles: {
       codeChef: any;
@@ -5,3 +7,8 @@ export default interface userprops {
       leetCode: any;
     };
   }
+
+  export interface userProps {
+    user: User;
+  }
+  

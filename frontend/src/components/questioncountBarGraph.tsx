@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -13,7 +12,8 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import getUserProfile from '../functions/getuserProfiles';
-
+import User from '../models/userModel';
+import { userProps } from '../models/profilesmodel';
 
 // Register the components for Chart.js
 ChartJS.register(
@@ -26,17 +26,18 @@ ChartJS.register(
   ChartDataLabels
 );
 
-const QuestionCountGraph: React.FC = () => {
+
+const QuestionCountGraph: React.FC<userProps> = ({ user }) => {
   const [profiles, setProfiles] = useState<any>(null);
 
   useEffect(() => {
     const fetchProfiles = async () => {
-      const data = await getUserProfile("kps_bathla", "kpsbathla", "kamalpreet6198");
+      const data = await getUserProfile(user.codechef, user.codeforces, user.leetcode);
       setProfiles(data);
     };
 
     fetchProfiles();
-  }, []);
+  }, [user]);
 
   if (!profiles) {
     // Shimmer loader

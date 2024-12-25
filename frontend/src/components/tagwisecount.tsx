@@ -9,11 +9,12 @@ import {
 } from "chart.js";
 import TagComponent from "./tagComponent";
 import host from "../consts";
+import { userProps } from "../models/profilesmodel";
 
 // Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function TagWiseCount() {
+const TagWiseCount: React.FC<userProps> = ({ user }) => {
   const [tagData, setTagData] = useState<Record<string, number>>({});
   const [lcTagCounts, setLcTagCounts] = useState<Record<string, number>>({});
   const [cfTagCounts, setCfTagCounts] = useState<Record<string, number>>({});
@@ -29,7 +30,7 @@ function TagWiseCount() {
     setLoading(true);
     try {
       const profileResponse = await fetch(
-        `${host}/api/codeforces/getcodeforcesProfile?username=kpsbathla`
+        `${host}/api/codeforces/getcodeforcesProfile?username=${user.codeforces}`
       );
       if (profileResponse.ok) {
         const profileData = await profileResponse.json();
@@ -37,7 +38,7 @@ function TagWiseCount() {
       }
 
       const leetcodeResponse = await fetch(
-        `https://leetcodeapi-bolt.vercel.app/skillStats/kamalpreet6198`
+        `https://leetcodeapi-bolt.vercel.app/skillStats/${user.leetcode}`
       );
       if (leetcodeResponse.ok) {
         const leetcodeData = await leetcodeResponse.json();
