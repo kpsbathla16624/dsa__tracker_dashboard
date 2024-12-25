@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -11,6 +12,8 @@ import {
   ChartOptions,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import getUserProfile from '../functions/getuserProfiles';
+
 
 // Register the components for Chart.js
 ChartJS.register(
@@ -23,15 +26,34 @@ ChartJS.register(
   ChartDataLabels
 );
 
-interface BarChartProps {
-  profiles: {
-    codeChef: any;
-    codeForces: any;
-    leetCode: any;
-  };
-}
+const QuestionCountGraph: React.FC = () => {
+  const [profiles, setProfiles] = useState<any>(null);
 
-const   BarChart: React.FC<BarChartProps> = ({ profiles }) => {
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      const data = await getUserProfile("kps_bathla", "kpsbathla", "kamalpreet6198");
+      setProfiles(data);
+    };
+
+    fetchProfiles();
+  }, []);
+
+  if (!profiles) {
+    // Shimmer loader
+    return (
+      <div className=" w-full h-full shimmer-effect flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-transparent bg-blur-xl">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          {/* Title shimmer */}
+          <div className="h-6 w-32 bg-gray-600 rounded-md"></div>
+          {/* Bar shimmer */}
+          <div className="h-4 w-full bg-gray-600 rounded-md"></div>
+          <div className="h-4 w-full bg-gray-600 rounded-md"></div>
+          <div className="h-4 w-full bg-gray-600 rounded-md"></div>
+        </div>
+      </div>
+    );
+  }
+
   const data = {
     labels: ['CodeChef', 'Codeforces', 'LeetCode'],
     datasets: [
@@ -42,18 +64,10 @@ const   BarChart: React.FC<BarChartProps> = ({ profiles }) => {
           profiles.codeForces ? profiles.codeForces.total : 0,
           profiles.leetCode ? profiles.leetCode.totalSolved : 0,
         ],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.8)',
-          'rgba(54, 162, 235, 0.8)',
-          'rgba(75, 192, 192, 0.8)',
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(75, 192, 192, 1)',
-        ],
+        backgroundColor: ['rgb(45 212 191)', 'white', 'grey'],
+        borderColor: ['rgb(45 212 191)', 'white', 'grey'],
         borderWidth: 1,
-        barThickness: 70, 
+        barThickness: 70,
         maxBarThickness: 100,
       },
     ],
@@ -64,7 +78,7 @@ const   BarChart: React.FC<BarChartProps> = ({ profiles }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false, 
+        display: false,
       },
       title: {
         display: true,
@@ -98,19 +112,18 @@ const   BarChart: React.FC<BarChartProps> = ({ profiles }) => {
       },
     },
   };
-console.log(data);
+
   return (
-    <div className="w-full max-w-[450px] h-[350px] justify-evenly flex flex-col my-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
-      <h1 className='text-white'>
-        Total Questions :{" "} 
+    <div className="w-full  h-full justify-evenly flex flex-col my-2 p-4 border rounded-xl shadow-lg backdrop-blur-lg bg-opacity-75 bg-transparent bg-blur-xl">
+      <h1 className="text-white">
+        Total Questions:{" "}
         {Number(profiles.codeForces.total) +
           Number(profiles.codeChef.total) +
           Number(profiles.leetCode.totalSolved)}
       </h1>
-      <Bar data={data} options={options} className='pb-3'  />
+      <Bar data={data} options={options} className="pb-3 bg-transparent" />
     </div>
   );
-  
 };
 
-export default BarChart;
+export default QuestionCountGraph;

@@ -11,20 +11,18 @@ import {
 } from "recharts";
 import { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent";
 
-interface RatingData {
-  code: string;
-  getyear: string;
-  getmonth: string;
-  getday: string;
-  rating: string;
-  rank: string;
-  name: string;
-  end_date: string;
-  color: string;
+interface codeforcesRatingdata {
+  contestId: number;
+  contestName: string;
+  handle: string;
+  rank: number;
+  ratingUpdateTimeSeconds: number;
+  oldRating: number;
+  newRating: number;
 }
 
-interface CodechefRatingGraphProps {
-  ratingData: RatingData[];
+interface codeforcesRatingGraphProps {
+  ratingData: codeforcesRatingdata[];
 }
 
 // Custom tooltip component
@@ -35,7 +33,7 @@ const CustomTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
 }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-2 rounded-lg shadow-md">
+      <div className="bg-black p-2 rounded-lg shadow-md">
         <p className="label">{`Date: ${label}`}</p>
         <p className="intro">{`Rating: ${payload[0].value}`}</p>
         <p className="intro">{`Contest: ${payload[0].payload.contest}`}</p>
@@ -46,16 +44,21 @@ const CustomTooltip: React.FC<TooltipProps<ValueType, NameType>> = ({
   return null;
 };
 
-const CodechefRatingGraph: React.FC<CodechefRatingGraphProps> = ({ ratingData }) => {
-  const processedData = ratingData.map((entry) => ({
-    date: `${entry.getyear}-${entry.getmonth.padStart(2, '0')}-${entry.getday.padStart(2, '0')}`,
-    rating: Number(entry.rating), // Convert rating to a number
-    contest: entry.name, // Map contest name
-  }));
+const CodeforcesRatingGraph: React.FC<codeforcesRatingGraphProps> = ({ ratingData }) => {
+  const processedData = ratingData.map((entry) => {
+    const date = new Date(entry.ratingUpdateTimeSeconds * 1000); // Convert Unix timestamp to milliseconds
+    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+    return {
+      date: formattedDate,
+      rating: entry.newRating,
+      contest: entry.contestName,
+    };
+  });
 
   return (
-    <div className="h-[350px] justify-center items-center flex flex-col my-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-gradient-to-br from-gray-800 via-black to-gray-800 bg-blur-xl">
-      <h1 className="text-white font-bold mt-10">CodeChef Rating Graph</h1>
+    <div className="h-full justify-center items-center  p-4 flex flex-col shadow-lg  bg-transparent bg-blur-xl">
+     
       <ResponsiveContainer>
         <LineChart
           data={processedData}
@@ -68,7 +71,7 @@ const CodechefRatingGraph: React.FC<CodechefRatingGraphProps> = ({ ratingData })
           <Line
             type="monotone"
             dataKey="rating"
-            stroke="#8884d8"
+            stroke="#BB86FC"
             activeDot={{ r: 8 }}
           />
         </LineChart>
@@ -77,4 +80,4 @@ const CodechefRatingGraph: React.FC<CodechefRatingGraphProps> = ({ ratingData })
   );
 };
 
-export default CodechefRatingGraph;
+export default CodeforcesRatingGraph;

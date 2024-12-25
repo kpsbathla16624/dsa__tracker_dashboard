@@ -17,7 +17,7 @@ interface MyNavbarProps {
 }
 
 const MyNavbar: React.FC<MyNavbarProps> = ({ children }) => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate(); // Initialize navigate
   const id = useSelector((state: RootState) => state.userId.id);
     const [user, setUser] = useState<User | null>(null);
