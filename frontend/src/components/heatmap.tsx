@@ -100,8 +100,10 @@ const HeatMap: React.FC<HeatMapProps> = ({ codechefId, codeforcesId, leetcodeId 
         setMaxStreak(maxStreak);
     };
 
-    const startDate = new Date(new Date().getFullYear(), 0, 1);
-    const endDate = new Date();
+    const endDate = new Date(); // Today's date
+    const startDate = new Date(); // Start with today's date
+    startDate.setFullYear(startDate.getFullYear() - 1); // Go back exactly 1 year
+    
 
     return (
         <div className="w-full  flex flex-col  p-2 border border-white rounded-xl shadow-lg bg-transparent">
@@ -120,6 +122,7 @@ const HeatMap: React.FC<HeatMapProps> = ({ codechefId, codeforcesId, leetcodeId 
                         endDate={endDate}
                         values={heatmapData}
                         showWeekdayLabels={true}
+
                         weekdayLabels={['S', 'M', 'T', 'W', 'T', 'F', 'S']}
                         classForValue={(value) => {
                             if (!value || value.count === 0) return 'color-empty';
@@ -130,7 +133,7 @@ const HeatMap: React.FC<HeatMapProps> = ({ codechefId, codeforcesId, leetcodeId 
                         }}
                         titleForValue={(value) =>
                             value && value.count
-                                ? `${format(new Date(value.date), 'd MMMM')}: ${value.count} submissions`
+                                ? `${format(new Date(value.date), 'd MMMM yyyy')}: ${value.count} submissions`
                                 : 'No submissions'
                         }
                         showMonthLabels={true}
