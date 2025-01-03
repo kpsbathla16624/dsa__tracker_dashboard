@@ -303,6 +303,7 @@ import { useNavigate } from "react-router-dom";
 import host from "../consts";
 import { setid } from "../stores/slices/userslice";
 import LoadingSpinner from "../components/loading";
+import Welcomebar from "../components/welcomebar";
 
 
 function StatsPage() {
@@ -411,8 +412,9 @@ function StatsPage() {
   }
  
   return (
-    <div id="stats" className="z-50 px-5 lg:px-10 relative mt-20 text-white">
-      
+    <div id="stats" className="z-50 px-5 lg:px-10 relative  text-white">
+      <Welcomebar user={user}/>
+   
       <div className="grid grid-cols-1 md:grid-cols-10 gap-y-10 gap-x-4 grid-flow-row-dense auto-rows-auto">
         {/* QuestionCountGraph */}
         <div className="col-span-1 md:col-span-3 flex items-center justify-center flex-col max-h-[320px] overflow-y-hidden">

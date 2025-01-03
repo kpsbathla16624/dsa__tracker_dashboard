@@ -42,7 +42,7 @@ const QuestionCountGraph: React.FC<userProps> = ({ user }) => {
   if (!profiles) {
     // Shimmer loader
     return (
-      <div className=" w-full h-full shimmer-effect flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-transparent bg-blur-xl">
+      <div className=" w-full h-[300px] shimmer-effect flex flex-col items-center justify-center gap-2 p-4 border rounded-lg shadow-lg backdrop-blur-lg bg-opacity-75 bg-transparent bg-blur-xl">
         <div className="animate-pulse flex flex-col items-center gap-4">
           {/* Title shimmer */}
           <div className="h-6 w-32 bg-gray-600 rounded-md"></div>
