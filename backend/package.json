@@ -23,7 +23,7 @@
     "@typegoose/typegoose": "^12.8.0",
     "@types/got": "^9.6.12",
     "argon2": "^0.41.1",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0",
     "config": "^3.3.12",
